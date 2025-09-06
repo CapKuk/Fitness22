@@ -24,7 +24,7 @@ fun ExerciseItem(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp)),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainer,
         tonalElevation = 4.dp,
         shadowElevation = 2.dp
     ) {

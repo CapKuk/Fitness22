@@ -52,7 +52,7 @@ fun DayTab(
                 Icon(
                     imageVector = Icons.Default.Check,
                     contentDescription = "Completed",
-                    tint = Color.White,
+                    tint = MaterialTheme.colorScheme.onSecondary,
                     modifier = Modifier.size(16.dp)
                 )
             } else {
