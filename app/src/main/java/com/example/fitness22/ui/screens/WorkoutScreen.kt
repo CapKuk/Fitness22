@@ -112,7 +112,7 @@ fun WorkoutScreen(
                 DayTab(
                     day = workoutDay.day,
                     isSelected = workoutDay.day == uiState.selectedDay,
-                    isCompleted = workoutDay.day == 2, // Mark Day 1 as completed for demo
+                    isCompleted = workoutDay.day == 2,
                     onClick = { viewModel.selectDay(workoutDay.day) }
                 )
             }
@@ -200,7 +200,7 @@ private fun WorkoutContent(workoutDay: WorkoutDay) {
 
         item {
             // Start/Redo Workout Button
-            val isCompleted = workoutDay.day == 2 // Same logic as in DayTab
+            val isCompleted = workoutDay.day == 2
             Button(
                 onClick = { /* Handle start workout */ },
                 modifier = Modifier

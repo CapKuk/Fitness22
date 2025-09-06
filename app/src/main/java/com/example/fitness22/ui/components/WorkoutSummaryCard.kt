@@ -21,8 +21,8 @@ fun WorkoutSummaryCard(
 ) {
     // Calculate workout summary
     val exerciseCount = exercises.size
-    val estimatedTime = exerciseCount * 8 + 5 // Rough estimate: 8 min per exercise + 5 min warm-up
-    val estimatedCalories = exerciseCount * 45 // Hard-coded estimate: 45 calories per exercise
+    val estimatedTime = exerciseCount * 8 + 5
+    val estimatedCalories = exerciseCount * 45
 
     Surface(
         modifier = modifier

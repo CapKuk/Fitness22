@@ -24,7 +24,7 @@ private val DarkColorScheme = darkColorScheme(
     background = DarkBackground,
     surface = DarkSurface,
     surfaceVariant = DarkSurfaceVariant,
-    surfaceContainer = ExerciseListBackground, // Use ExerciseListBackground as surfaceContainer
+    surfaceContainer = ExerciseListBackground,
     onSurface = DarkOnSurface,
     onSurfaceVariant = DarkOnSurfaceVariant,
     outline = DarkOutline
@@ -39,7 +39,7 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun Fitness22Theme(
     darkTheme: Boolean = true, // Force dark theme always
-    dynamicColor: Boolean = false, // Disable dynamic colors to use our custom scheme
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = DarkColorScheme // Always use our dark color scheme
