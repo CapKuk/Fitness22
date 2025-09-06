@@ -1,6 +1,7 @@
 package com.example.fitness22.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -15,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -25,7 +27,7 @@ import com.example.fitness22.data.repository.WorkoutRepository
 import com.example.fitness22.ui.components.FilterChip
 import com.example.fitness22.ui.components.DayTab
 import com.example.fitness22.ui.components.ExerciseItem
-import com.example.fitness22.ui.components.WorkoutSummaryCard
+import com.example.fitness22.ui.components.WorkoutSummaryRow
 
 @Composable
 fun WorkoutScreen(
@@ -39,19 +41,21 @@ fun WorkoutScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp)
     ) {
-        // Title
+        // Title with proper spacing
         Text(
             text = "My Workout",
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(bottom = 16.dp)
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 20.dp)
         )
 
         // Filter Row
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             FilterChip(
@@ -72,13 +76,15 @@ fun WorkoutScreen(
 
         // Day Tabs - Dynamic based on WorkoutResponse
         LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.padding(bottom = 16.dp)
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            modifier = Modifier.padding(bottom = 20.dp)
         ) {
             items(uiState.workoutDays) { workoutDay ->
                 DayTab(
                     day = workoutDay.day,
                     isSelected = workoutDay.day == uiState.selectedDay,
+                    isCompleted = workoutDay.day == 1, // Mark Day 1 as completed for demo
                     onClick = { viewModel.selectDay(workoutDay.day) }
                 )
             }
@@ -116,29 +122,50 @@ fun WorkoutScreen(
 
 @Composable
 private fun WorkoutContent(workoutDay: WorkoutDay) {
-    LazyColumn {
+    LazyColumn(
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
         item {
-            // Week info
-            Text(
-                text = "Week 1/5 - Foundations",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-        }
+            // Workout Header
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "Week 1/5 - Foundations",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
 
-        item {
-            // Workout Summary Card
-            WorkoutSummaryCard(
-                exercises = workoutDay.workout,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
+                Text(
+                    text = "UPCOMING WORKOUT",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    letterSpacing = 1.sp,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+                
+                Text(
+                    text = "Push",
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+                
+                // Workout Summary Stats Row
+                WorkoutSummaryRow(exercises = workoutDay.workout)
+                
+                Spacer(modifier = Modifier.height(16.dp))
+            }
         }
 
         items(workoutDay.workout) { exercise ->
             ExerciseItem(
-                exercise = exercise,
-                modifier = Modifier.padding(bottom = 8.dp)
+                exercise = exercise
             )
         }
 
@@ -148,16 +175,18 @@ private fun WorkoutContent(workoutDay: WorkoutDay) {
                 onClick = { /* Handle start workout */ },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 16.dp),
+                    .padding(top = 20.dp, bottom = 16.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFFFD700),
-                    contentColor = Color.Black
-                )
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                shape = RoundedCornerShape(12.dp)
             ) {
                 Text(
                     text = "START WORKOUT",
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(vertical = 4.dp)
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(vertical = 12.dp)
                 )
             }
         }

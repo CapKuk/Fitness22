@@ -29,7 +29,8 @@ fun WorkoutSummaryCard(
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp)),
         color = MaterialTheme.colorScheme.surface,
-        tonalElevation = 4.dp
+        tonalElevation = 6.dp,
+        shadowElevation = 4.dp
     ) {
         Column(
             modifier = Modifier.padding(20.dp)
@@ -37,18 +38,19 @@ fun WorkoutSummaryCard(
             // Header
             Text(
                 text = "UPCOMING WORKOUT",
-                fontSize = 14.sp,
+                fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                letterSpacing = 1.sp,
                 modifier = Modifier.padding(bottom = 4.dp)
             )
             
             Text(
                 text = "Push",
-                fontSize = 20.sp,
+                fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier.padding(bottom = 20.dp)
             )
 
             // Summary Stats Row
