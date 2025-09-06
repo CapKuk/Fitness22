@@ -13,7 +13,7 @@ val Pink40 = Color(0xFF7D5260)
 // Dark blue theme colors - Making them more visibly blue
 val DarkBackground = Color(0xFF252f3b) // Slightly more blue-tinted dark background
 val DarkSurface = Color(0xFF1A1F2E) // More noticeably blue surface
-val DarkSurfaceVariant = Color(0xFF232A3A) // Lighter blue surface variant
+val DarkSurfaceVariant = Color(0xFF384555) // Lighter blue surface variant
 val DarkPrimary = Color(0xFFFDD835) // Keep yellow button color
 val DarkOnPrimary = Color(0xFF000000)
 val DarkOnSurface = Color(0xFFFFFFFF)
