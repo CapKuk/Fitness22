@@ -3,6 +3,11 @@ package com.example.fitness22.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -17,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -145,7 +151,9 @@ fun WorkoutScreen(
                 WorkoutContent(
                     workoutDay = uiState.currentWorkout!!,
                     isEditMode = uiState.isEditMode,
-                    onEditClick = { viewModel.toggleEditMode() }
+                    workoutName = uiState.workoutName,
+                    onEditClick = { viewModel.toggleEditMode() },
+                    onWorkoutNameChange = { viewModel.updateWorkoutName(it) }
                 )
             }
         }
@@ -156,7 +164,9 @@ fun WorkoutScreen(
 private fun WorkoutContent(
     workoutDay: WorkoutDay,
     isEditMode: Boolean,
-    onEditClick: () -> Unit
+    workoutName: String,
+    onEditClick: () -> Unit,
+    onWorkoutNameChange: (String) -> Unit
 ) {
     Surface (
         modifier = Modifier
@@ -191,15 +201,43 @@ private fun WorkoutContent(
                                 bottom = 8.dp)
                         )
 
-                        Text(
-                            text = "UPCOMING WORKOUT",
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold,
-                            fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            letterSpacing = 1.sp,
-                            modifier = Modifier.padding(bottom = 4.dp)
-                        )
+                        if (isEditMode) {
+                            BasicTextField(
+                                value = workoutName,
+                                onValueChange = onWorkoutNameChange,
+                                textStyle = androidx.compose.ui.text.TextStyle(
+                                    fontSize = 22.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    letterSpacing = 1.sp,
+                                    textAlign = TextAlign.Center
+                                ),
+                                keyboardOptions = KeyboardOptions(
+                                    imeAction = ImeAction.Done
+                                ),
+                                keyboardActions = KeyboardActions(
+                                    onDone = { onEditClick() }
+                                ),
+                                singleLine = true,
+                                modifier = Modifier
+                                    .padding(
+                                        bottom = 4.dp,
+                                        start = 16.dp,
+                                        end = 16.dp)
+                                    .fillMaxWidth()
+                            )
+                        } else {
+                            Text(
+                                text = workoutName,
+                                fontSize = 22.sp,
+                                fontWeight = FontWeight.Bold,
+                                fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                                color = MaterialTheme.colorScheme.onSurface,
+                                letterSpacing = 1.sp,
+                                modifier = Modifier.padding(bottom = 4.dp)
+                            )
+                        }
 
                         Text(
                             text = "Push",
@@ -217,7 +255,7 @@ private fun WorkoutContent(
                     
                     // Pen/Edit button in top-right corner
                     IconButton(
-                        onClick = { /* Handle edit workout */ },
+                        onClick = onEditClick,
                         modifier = Modifier
                             .align(Alignment.TopEnd)
                             .padding(top = 8.dp, end = 8.dp)

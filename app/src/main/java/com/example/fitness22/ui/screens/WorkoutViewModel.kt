@@ -53,6 +53,14 @@ class WorkoutViewModel(
     fun selectDurationFilter(duration: String) {
         _uiState.value = _uiState.value.copy(selectedDurationFilter = duration)
     }
+
+    fun toggleEditMode() {
+        _uiState.value = _uiState.value.copy(isEditMode = !_uiState.value.isEditMode)
+    }
+
+    fun updateWorkoutName(name: String) {
+        _uiState.value = _uiState.value.copy(workoutName = name)
+    }
 }
 
 data class WorkoutUiState(
@@ -61,7 +69,9 @@ data class WorkoutUiState(
     val selectedDay: Int = 1,
     val selectedMuscleFilter: String = "Muscles (16)",
     val selectedDurationFilter: String = "45-60 Min",
-    val error: String? = null
+    val error: String? = null,
+    val isEditMode: Boolean = false,
+    val workoutName: String = "UPCOMING WORKOUT"
 ) {
     val currentWorkout: WorkoutDay?
         get() = workoutDays.find { it.day == selectedDay }
