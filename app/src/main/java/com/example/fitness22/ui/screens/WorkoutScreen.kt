@@ -28,6 +28,7 @@ import com.example.fitness22.ui.components.FilterChip
 import com.example.fitness22.ui.components.DayTab
 import com.example.fitness22.ui.components.ExerciseItem
 import com.example.fitness22.ui.components.WorkoutSummaryRow
+import com.example.fitness22.ui.components.RefreshPlanButton
 
 @Composable
 fun WorkoutScreen(
@@ -51,25 +52,53 @@ fun WorkoutScreen(
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 20.dp)
         )
 
-        // Filter Row
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        // Filter Row - Horizontal Scroll
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            modifier = Modifier.fillMaxWidth()
         ) {
-            FilterChip(
-                text = uiState.selectedMuscleFilter,
-                onClick = { /* Handle muscle filter */ }
-            )
-            FilterChip(
-                text = uiState.selectedDurationFilter,
-                onClick = { /* Handle duration filter */ }
-            )
-            FilterChip(
-                text = "Schedule",
-                onClick = { /* Handle schedule filter */ }
-            )
+            item {
+                FilterChip(
+                    text = uiState.selectedMuscleFilter,
+                    onClick = { /* Handle muscle filter */ }
+                )
+            }
+            item {
+                FilterChip(
+                    text = uiState.selectedDurationFilter,
+                    onClick = { /* Handle duration filter */ }
+                )
+            }
+            item {
+                FilterChip(
+                    text = "Schedule",
+                    onClick = { /* Handle schedule filter */ }
+                )
+            }
+            item {
+                FilterChip(
+                    text = "Basic Exercises",
+                    onClick = { /* Handle basic exercises filter */ }
+                )
+            }
+            item {
+                FilterChip(
+                    text = "Equipment (64)",
+                    onClick = { /* Handle equipment filter */ }
+                )
+            }
+            item {
+                FilterChip(
+                    text = "Goal (1)",
+                    onClick = { /* Handle goal filter */ }
+                )
+            }
+            item {
+                RefreshPlanButton(
+                    onClick = { /* Handle refresh plan */ }
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -141,18 +170,18 @@ private fun WorkoutContent(workoutDay: WorkoutDay) {
 
                 Text(
                     text = "UPCOMING WORKOUT",
-                    fontSize = 12.sp,
+                    fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurface,
                     letterSpacing = 1.sp,
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
                 
                 Text(
                     text = "Push",
-                    fontSize = 22.sp,
+                    fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 
