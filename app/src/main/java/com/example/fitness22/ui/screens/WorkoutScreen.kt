@@ -150,75 +150,90 @@ fun WorkoutScreen(
 
 @Composable
 private fun WorkoutContent(workoutDay: WorkoutDay) {
-    LazyColumn(
-        contentPadding = PaddingValues(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+    Surface (
+        modifier = Modifier
+            .clip(RoundedCornerShape(
+                topStart = 24.dp,
+                topEnd = 24.dp,
+                bottomStart = 0.dp,
+                bottomEnd = 0.dp))
+            .fillMaxHeight(),
+        color = MaterialTheme.colorScheme.surface,
+
     ) {
-        item {
-            // Workout Header
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = "Week 1/5 - Foundations",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.tertiary,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
+        LazyColumn(
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            item {
+                // Workout Header
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Week 1/5 - Foundations",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.tertiary,
+                        modifier = Modifier.padding(
+                            top = 8.dp,
+                            bottom = 8.dp)
+                    )
 
-                Text(
-                    text = "UPCOMING WORKOUT",
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    letterSpacing = 1.sp,
-                    modifier = Modifier.padding(bottom = 4.dp)
-                )
-                
-                Text(
-                    text = "Push",
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(bottom = 16.dp)
-                )
-                
-                // Workout Summary Stats Row
-                WorkoutSummaryRow(exercises = workoutDay.workout)
-                
-                Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "UPCOMING WORKOUT",
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        letterSpacing = 1.sp,
+                        modifier = Modifier.padding(bottom = 4.dp)
+                    )
+
+                    Text(
+                        text = "Push",
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
+
+                    // Workout Summary Stats Row
+                    WorkoutSummaryRow(exercises = workoutDay.workout)
+
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
             }
-        }
 
-        items(workoutDay.workout) { exercise ->
-            ExerciseItem(
-                exercise = exercise
-            )
-        }
-
-        item {
-            // Start/Redo Workout Button
-            val isCompleted = workoutDay.day == 2
-            Button(
-                onClick = { /* Handle start workout */ },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 20.dp, bottom = 16.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary
-                ),
-                shape = RoundedCornerShape(12.dp)
-            ) {
-                Text(
-                    text = if (isCompleted) "REDO WORKOUT" else "START WORKOUT",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
-                    modifier = Modifier.padding(vertical = 12.dp)
+            items(workoutDay.workout) { exercise ->
+                ExerciseItem(
+                    exercise = exercise
                 )
+            }
+
+            item {
+                // Start/Redo Workout Button
+                val isCompleted = workoutDay.day == 2
+                Button(
+                    onClick = { /* Handle start workout */ },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp, bottom = 16.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    ),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text(
+                        text = if (isCompleted) "REDO WORKOUT" else "START WORKOUT",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(vertical = 12.dp)
+                    )
+                }
             }
         }
     }
+
 }
