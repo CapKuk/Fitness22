@@ -41,8 +41,9 @@ fun ExerciseItem(
                     .clip(RoundedCornerShape(12.dp))
                     .background(MaterialTheme.colorScheme.surfaceVariant)
             ) {
+                val imageFileName = exercise.thumbnail.replace("ronals", "ronald")
                 AsyncImage(
-                    model = "file:///android_asset/${exercise.thumbnail}",
+                    model = "file:///android_asset/exercises/$imageFileName",
                     contentDescription = exercise.name,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
@@ -82,7 +83,7 @@ fun ExerciseItem(
                     .background(MaterialTheme.colorScheme.surfaceVariant)
             ) {
                 AsyncImage(
-                    model = "file:///android_asset/${exercise.muscleGroupImage}",
+                    model = "file:///android_asset/muscle_groups/${exercise.muscleGroupImage}",
                     contentDescription = exercise.muscleGroup,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop

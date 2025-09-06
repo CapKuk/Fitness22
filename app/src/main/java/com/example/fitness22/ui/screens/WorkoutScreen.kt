@@ -200,7 +200,8 @@ private fun WorkoutContent(workoutDay: WorkoutDay) {
         }
 
         item {
-            // Start Workout Button
+            // Start/Redo Workout Button
+            val isCompleted = workoutDay.day == 2 // Same logic as in DayTab
             Button(
                 onClick = { /* Handle start workout */ },
                 modifier = Modifier
@@ -213,7 +214,7 @@ private fun WorkoutContent(workoutDay: WorkoutDay) {
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Text(
-                    text = "START WORKOUT",
+                    text = if (isCompleted) "REDO WORKOUT" else "START WORKOUT",
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
                     modifier = Modifier.padding(vertical = 12.dp)
