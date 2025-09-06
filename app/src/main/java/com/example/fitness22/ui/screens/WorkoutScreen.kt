@@ -113,7 +113,7 @@ fun WorkoutScreen(
                 DayTab(
                     day = workoutDay.day,
                     isSelected = workoutDay.day == uiState.selectedDay,
-                    isCompleted = workoutDay.day == 1, // Mark Day 1 as completed for demo
+                    isCompleted = workoutDay.day == 2, // Mark Day 1 as completed for demo
                     onClick = { viewModel.selectDay(workoutDay.day) }
                 )
             }

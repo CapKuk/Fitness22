@@ -3,9 +3,13 @@ package com.example.fitness22.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.*
@@ -26,37 +30,42 @@ fun DayTab(
     modifier: Modifier = Modifier,
     isCompleted: Boolean = false
 ) {
-    Box(
+    Surface(
         modifier = modifier
-            .size(48.dp)
-            .clip(CircleShape)
-            .background(
-                when {
-                    isSelected -> MaterialTheme.colorScheme.primary
-                    isCompleted -> MaterialTheme.colorScheme.secondary
-                    else -> MaterialTheme.colorScheme.surface
-                }
-            )
+            .clip(RoundedCornerShape(24.dp))
             .clickable { onClick() },
-        contentAlignment = Alignment.Center
+        color = when {
+            isSelected -> MaterialTheme.colorScheme.primary
+            isCompleted -> MaterialTheme.colorScheme.secondary
+            else -> MaterialTheme.colorScheme.surfaceVariant
+        },
+        tonalElevation = 4.dp
     ) {
-        if (isCompleted && !isSelected) {
-            Icon(
-                imageVector = Icons.Default.Check,
-                contentDescription = "Completed",
-                tint = Color.White,
-                modifier = Modifier.size(24.dp)
-            )
-        } else {
-            Text(
-                text = "$day",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = when {
-                    isSelected -> MaterialTheme.colorScheme.onPrimary
-                    else -> MaterialTheme.colorScheme.onSurface
-                }
-            )
+        Box(
+            modifier = Modifier
+                .width(80.dp)
+                .height(40.dp)
+                .padding(horizontal = 16.dp, vertical = 5.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            if (isCompleted && !isSelected) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "Completed",
+                    tint = Color.White,
+                    modifier = Modifier.size(16.dp)
+                )
+            } else {
+                Text(
+                    text = "Day $day",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = when {
+                        isSelected -> MaterialTheme.colorScheme.onPrimary
+                        else -> MaterialTheme.colorScheme.onSurfaceVariant
+                    }
+                )
+            }
         }
     }
 }
