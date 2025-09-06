@@ -164,7 +164,7 @@ private fun WorkoutContent(workoutDay: WorkoutDay) {
                 Text(
                     text = "Week 1/5 - Foundations",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                    color = MaterialTheme.colorScheme.tertiary,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
 
@@ -172,6 +172,7 @@ private fun WorkoutContent(workoutDay: WorkoutDay) {
                     text = "UPCOMING WORKOUT",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
+                    fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
                     color = MaterialTheme.colorScheme.onSurface,
                     letterSpacing = 1.sp,
                     modifier = Modifier.padding(bottom = 4.dp)
