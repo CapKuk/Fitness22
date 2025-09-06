@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Original Material colors (keep for compatibility) -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,4 +8,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <!-- Dark blue theme colors to match Compose theme -->
+    <color name="dark_background">#FF0F1419</color>
+    <color name="dark_surface">#FF1A1F2E</color>
+    <color name="dark_surface_variant">#FF232A3A</color>
+    <color name="dark_primary">#FFFDD835</color>
+    <color name="dark_on_primary">#FF000000</color>
+    <color name="dark_on_surface">#FFFFFFFF</color>
+    <color name="dark_on_surface_variant">#FFB0B8C5</color>
+    <color name="dark_secondary">#FF4CAF50</color>
+    <color name="dark_tertiary">#FF58A6FF</color>
+    <color name="dark_outline">#FF3A4556</color>
 </resources>
