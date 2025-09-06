@@ -202,6 +202,14 @@ private fun WorkoutContent(
                         )
 
                         if (isEditMode) {
+                            val focusRequester = remember { FocusRequester() }
+                            
+                            LaunchedEffect(isEditMode) {
+                                if (isEditMode) {
+                                    focusRequester.requestFocus()
+                                }
+                            }
+                            
                             BasicTextField(
                                 value = workoutName,
                                 onValueChange = onWorkoutNameChange,
@@ -221,6 +229,7 @@ private fun WorkoutContent(
                                 ),
                                 singleLine = true,
                                 modifier = Modifier
+                                    .focusRequester(focusRequester)
                                     .padding(
                                         bottom = 4.dp,
                                         start = 16.dp,
