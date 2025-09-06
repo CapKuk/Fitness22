@@ -7,6 +7,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -141,7 +143,9 @@ fun WorkoutScreen(
             }
             uiState.currentWorkout != null -> {
                 WorkoutContent(
-                    workoutDay = uiState.currentWorkout!!
+                    workoutDay = uiState.currentWorkout!!,
+                    isEditMode = uiState.isEditMode,
+                    onEditClick = { viewModel.toggleEditMode() }
                 )
             }
         }
@@ -149,7 +153,11 @@ fun WorkoutScreen(
 }
 
 @Composable
-private fun WorkoutContent(workoutDay: WorkoutDay) {
+private fun WorkoutContent(
+    workoutDay: WorkoutDay,
+    isEditMode: Boolean,
+    onEditClick: () -> Unit
+) {
     Surface (
         modifier = Modifier
             .clip(RoundedCornerShape(
@@ -167,41 +175,59 @@ private fun WorkoutContent(workoutDay: WorkoutDay) {
         ) {
             item {
                 // Workout Header
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
+                Box(
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(
-                        text = "Week 1/5 - Foundations",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.tertiary,
-                        modifier = Modifier.padding(
-                            top = 8.dp,
-                            bottom = 8.dp)
-                    )
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "Week 1/5 - Foundations",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.tertiary,
+                            modifier = Modifier.padding(
+                                top = 8.dp,
+                                bottom = 8.dp)
+                        )
 
-                    Text(
-                        text = "UPCOMING WORKOUT",
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.Bold,
-                        fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        letterSpacing = 1.sp,
-                        modifier = Modifier.padding(bottom = 4.dp)
-                    )
+                        Text(
+                            text = "UPCOMING WORKOUT",
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            letterSpacing = 1.sp,
+                            modifier = Modifier.padding(bottom = 4.dp)
+                        )
 
-                    Text(
-                        text = "Push",
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(bottom = 16.dp)
-                    )
+                        Text(
+                            text = "Push",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(bottom = 16.dp)
+                        )
 
-                    // Workout Summary Stats Row
-                    WorkoutSummaryRow(exercises = workoutDay.workout)
+                        // Workout Summary Stats Row
+                        WorkoutSummaryRow(exercises = workoutDay.workout)
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
+                    
+                    // Pen/Edit button in top-right corner
+                    IconButton(
+                        onClick = { /* Handle edit workout */ },
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(top = 8.dp, end = 8.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "Edit workout",
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
                 }
             }
 
